@@ -10,8 +10,8 @@ import java.util.List;
 public class SpaceSeparatedNumberReader implements NumberReader {
 
     @Override
-    public List<Number> readData(String path) throws IOException {
-        ArrayList<Number> numbers = new ArrayList<>();
+    public List<Double> readData(String path) throws IOException {
+        ArrayList<Double> numbers = new ArrayList<>();
         Files.lines(Paths.get(path)).forEach(line -> parseLine(numbers, line));
         return numbers;
     }
@@ -19,6 +19,6 @@ public class SpaceSeparatedNumberReader implements NumberReader {
     private void parseLine(List list, String line) {
         Arrays.stream(line.split(" "))
                 .filter(s -> !s.isEmpty())
-                .forEach(s -> list.add(new Float(s)));
+                .forEach(s -> list.add(new Double(s)));
     }
 }

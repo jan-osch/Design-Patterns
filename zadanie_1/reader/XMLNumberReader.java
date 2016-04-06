@@ -10,25 +10,25 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class XMLNumberReader implements NumberReader {
-    Pattern pattern = Pattern.compile("<value>([0-9.,]*)<\\/value>");
+    private Pattern pattern = Pattern.compile("<value>([0-9.,]*)<\\/value>");
 
     @Override
-    public List<Number> readData(String path) throws IOException {
-        ArrayList<Number> numbers = new ArrayList<>();
+    public List<Double> readData(String path) throws IOException {
+        ArrayList<Double> numbers = new ArrayList<>();
         Files.lines(new File(path).toPath()).forEach((line) -> this.addParsedNumber(numbers, this.parseLine(line)));
         return numbers;
     }
 
-    private void addParsedNumber(List<Number> numbers, Optional<Number> number) {
+    private void addParsedNumber(List<Double> numbers, Optional<Double> number) {
         if (number.isPresent()) {
             numbers.add(number.get());
         }
     }
 
-    private Optional<Number> parseLine(String line) {
+    private Optional<Double> parseLine(String line) {
         Matcher matcher = pattern.matcher(line);
         if (matcher.find()) {
-            return Optional.of(new Float(matcher.group(0)));
+            return Optional.of(new Double(matcher.group(1)));
         }
         return Optional.empty();
     }

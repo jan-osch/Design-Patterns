@@ -6,7 +6,7 @@ public class ArgumentParser {
 
 
     public static NumberWriter getNumberWriterByArgument(String argument) {
-        return null;
+        if()
     }
 
     public static NumberSorter getNumberSorterByArgument(String argument) {
@@ -14,6 +14,6 @@ public class ArgumentParser {
     }
 
     public static NumberReader getNumberReaderByArgument(String argument) {
-        return null;
+
     }
 }
