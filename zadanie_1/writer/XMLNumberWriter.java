@@ -15,9 +15,11 @@ public class XMLNumberWriter extends AbstractNumberWriter implements NumberWrite
     public void writeNumbers(List<Double> input, String path) throws IOException {
         Path file = openFile(path);
         this.wroteLine = false;
-        this.writer = Files.newBufferedWriter(file);
-        for (Double number : input) {
-            writeSingleNumber(number);
+        try (BufferedWriter bufferedWriter = Files.newBufferedWriter(file)) {
+            this.writer = bufferedWriter;
+            for (Double number : input) {
+                writeSingleNumber(number);
+            }
         }
     }
 

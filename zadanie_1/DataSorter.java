@@ -2,6 +2,9 @@ import reader.NumberReader;
 import sorter.NumberSorter;
 import writer.NumberWriter;
 
+import java.io.IOException;
+import java.util.List;
+
 public class DataSorter {
     private NumberReader numberReader;
     private NumberSorter numberSorter;
@@ -13,7 +16,9 @@ public class DataSorter {
         this.numberWriter = numberWriter;
     }
 
-    public void sortData() {
-
+    public void sortData(String fromPath, String toPath) throws IOException {
+        List<Double> doubleList = this.numberReader.readData(fromPath);
+        List<Double> sortedData = this.numberSorter.sortData(doubleList);
+        this.numberWriter.writeNumbers(sortedData, toPath);
     }
 }

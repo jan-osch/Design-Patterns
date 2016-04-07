@@ -12,14 +12,16 @@ public class SpaceSeparatedNumberWriter extends AbstractNumberWriter implements 
     private StringBuilder currentLine;
     private int numbersInCurrentLine;
     private boolean wroteLine;
+    private BufferedWriter writer;
 
     @Override
     public void writeNumbers(List<Double> input, String filePath) throws IOException {
         Path path = openFile(filePath);
         initializeHelpers();
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+            this.writer = writer;
             for (Double x : input)
-                writeSingleNumber(writer, x);
+                writeSingleNumber(x);
         }
     }
 
@@ -29,21 +31,21 @@ public class SpaceSeparatedNumberWriter extends AbstractNumberWriter implements 
         this.wroteLine = false;
     }
 
-    private void writeSingleNumber(BufferedWriter writer, Double number) throws IOException {
+    private void writeSingleNumber(Double number) throws IOException {
         addNumberToCurrentLine(number);
         this.numbersInCurrentLine++;
         if (this.numbersInCurrentLine == NUMBER_OF_ELEMENTS_IN_LINE) {
             this.numbersInCurrentLine = 0;
-            this.writeCurrentLine(writer);
+            this.writeCurrentLine();
         }
     }
 
-    private void writeCurrentLine(BufferedWriter writer) throws IOException {
-        if (wroteLine) {
-            writer.newLine();
-            wroteLine = true;
+    private void writeCurrentLine() throws IOException {
+        if (this.wroteLine) {
+            this.writer.newLine();
+            this.wroteLine = true;
         }
-        writer.write(this.currentLine.toString());
+        this.writer.write(this.currentLine.toString());
 
     }
 
