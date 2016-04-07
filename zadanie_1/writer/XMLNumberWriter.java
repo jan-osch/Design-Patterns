@@ -26,8 +26,8 @@ public class XMLNumberWriter extends AbstractNumberWriter implements NumberWrite
     private void writeSingleNumber(Double number) throws IOException {
         if (wroteLine) {
             writer.newLine();
-            wroteLine = true;
         }
+        wroteLine = true;
         writer.write(String.format("<value>%1$,.2f</value>", number));
     }
 }

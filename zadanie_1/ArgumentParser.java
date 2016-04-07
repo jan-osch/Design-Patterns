@@ -33,7 +33,7 @@ public class ArgumentParser {
     public static NumberReader getNumberReaderByArgument(String argument) {
         if (Objects.equals(argument, "xml")) {
             return new XMLNumberReader();
-        } else if (Objects.equals(argument, "ms")) {
+        } else if (Objects.equals(argument, "ss")) {
             return new SpaceSeparatedNumberReader();
         }
         throw new RuntimeException("Invalid params");

@@ -42,11 +42,11 @@ public class SpaceSeparatedNumberWriter extends AbstractNumberWriter implements 
 
     private void writeCurrentLine() throws IOException {
         if (this.wroteLine) {
-            this.writer.newLine();
-            this.wroteLine = true;
+            this.writer.write("\n");
         }
+        this.wroteLine = true;
         this.writer.write(this.currentLine.toString());
-
+        this.currentLine.setLength(0);
     }
 
     private void addNumberToCurrentLine(Double x) {
