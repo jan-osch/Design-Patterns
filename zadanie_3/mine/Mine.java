@@ -1,5 +1,7 @@
 package mine;
 
+import mine.fan.Fan;
+
 import java.util.ArrayList;
 import java.util.List;
 

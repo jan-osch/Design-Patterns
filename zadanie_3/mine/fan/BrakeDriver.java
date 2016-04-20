@@ -1,16 +1,14 @@
-package mine;
+package mine.fan;
 
 public class BrakeDriver extends StartStopDevice {
 
     @Override
-    public void start() throws AlreadyRunning {
+    public void start() {
         System.out.println("Brake is being relesed");
-        this.setAsRunning();
     }
 
     @Override
-    public void stop() throws AlreadyStopped {
+    public void stop() {
         System.out.println("Brake is being turned on");
-        this.setAsStopped();
     }
 }

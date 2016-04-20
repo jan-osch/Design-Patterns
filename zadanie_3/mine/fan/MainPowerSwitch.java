@@ -1,4 +1,4 @@
-package mine;
+package mine.fan;
 
 public class MainPowerSwitch extends PowerSwitch {
     public MainPowerSwitch() {

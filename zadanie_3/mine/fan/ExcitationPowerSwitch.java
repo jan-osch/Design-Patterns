@@ -1,4 +1,4 @@
-package mine;
+package mine.fan;
 
 public class ExcitationPowerSwitch extends PowerSwitch {
     public ExcitationPowerSwitch() {

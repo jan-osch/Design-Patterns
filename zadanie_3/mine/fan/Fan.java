@@ -1,57 +1,56 @@
-package mine;
+package mine.fan;
+
+import mine.exceptions.InvalidSequence;
 
 public class Fan {
-    static int numberOfFans = 0;
-    private int orderNumber;
-    private OilPompDriver firstOilPompDriver;
-    private OilPompDriver secondOilPompDriver;
-    private BrakeDriver brakeDriver;
-    private ExcitationPowerSwitch excitationPowerSwitch;
-    private MainPowerSwitch mainPowerSwtich;
+    private StartStopDevice firstOilPompDriver;
+    private StartStopDevice secondOilPompDriver;
+    private StartStopDevice brakeDriver;
+    private StartStopDevice excitationPowerSwitch;
+    private StartStopDevice mainPowerSwitch;
     private int sequenceState;
     private int numberOfStates;
 
     public Fan() {
-        this.orderNumber = numberOfFans++;
         this.sequenceState = 0;
         this.numberOfStates = 10;
-        this.firstOilPompDriver = new OilPompDriver();
-        this.secondOilPompDriver = new OilPompDriver();
-        this.excitationPowerSwitch = new ExcitationPowerSwitch();
-        this.mainPowerSwtich = new MainPowerSwitch();
-        this.brakeDriver = new BrakeDriver();
+        this.firstOilPompDriver = FanPartsFactory.getNewOilPompDriver();
+        this.secondOilPompDriver = FanPartsFactory.getNewOilPompDriver();
+        this.excitationPowerSwitch = FanPartsFactory.getExcitationPowerSwitch();
+        this.mainPowerSwitch = FanPartsFactory.getMainPowerSwitch();
+        this.brakeDriver = FanPartsFactory.getNewBrakeDriver();
     }
 
     public int getSequenceState() {
         return sequenceState % this.numberOfStates;
     }
 
-    public void startFirstOilPompDriver() throws InvalidSequence, AlreadyRunning {
+    public void startFirstOilPompDriver() throws InvalidSequence {
         this.checkSequenceStateAndIncrement(0, 1);
         this.firstOilPompDriver.start();
     }
 
-    public void startSecondOilPompDriver() throws InvalidSequence, AlreadyRunning {
+    public void startSecondOilPompDriver() throws InvalidSequence {
         this.checkSequenceStateAndIncrement(0, 1);
         this.secondOilPompDriver.start();
     }
 
-    public void releaseTheBrakes() throws InvalidSequence, AlreadyRunning {
+    public void releaseTheBrakes() throws InvalidSequence {
         this.checkSequenceStateAndIncrement(2);
         this.brakeDriver.start();
     }
 
-    public void turnOnMainPowerSwitch() throws InvalidSequence, AlreadyRunning {
+    public void turnOnMainPowerSwitch() throws InvalidSequence {
         this.checkSequenceStateAndIncrement(3);
-        this.mainPowerSwtich.start();
+        this.mainPowerSwitch.start();
     }
 
-    public void turnOnExcitationPowerSwitch() throws InvalidSequence, AlreadyRunning {
+    public void turnOnExcitationPowerSwitch() throws InvalidSequence {
         this.checkSequenceStateAndIncrement(4);
         this.excitationPowerSwitch.start();
     }
 
-    public void turnOffExcitationPowerSwitch() throws InvalidSequence, AlreadyStopped {
+    public void turnOffExcitationPowerSwitch() throws InvalidSequence {
         this.checkSequenceStateAndIncrement(5);
         this.excitationPowerSwitch.stop();
     }
@@ -64,22 +63,22 @@ public class Fan {
         return this.getSequenceState() == 10;
     }
 
-    public void turnOffMainPowerSwitch() throws AlreadyStopped, InvalidSequence {
+    public void turnOffMainPowerSwitch() throws InvalidSequence {
         this.checkSequenceStateAndIncrement(6);
-        this.mainPowerSwtich.stop();
+        this.mainPowerSwitch.stop();
     }
 
-    public void turnOnTheBreak() throws AlreadyStopped, InvalidSequence {
+    public void turnOnTheBreak() throws InvalidSequence {
         this.checkSequenceStateAndIncrement(7);
         this.brakeDriver.stop();
     }
 
-    public void turnOffTheFirstOilPompDriver() throws AlreadyStopped, InvalidSequence {
+    public void turnOffTheFirstOilPompDriver() throws InvalidSequence {
         this.checkSequenceStateAndIncrement(8, 9);
         this.firstOilPompDriver.stop();
     }
 
-    public void turnOffTheSecondOilPompDriver() throws InvalidSequence, AlreadyStopped {
+    public void turnOffTheSecondOilPompDriver() throws InvalidSequence {
         this.checkSequenceStateAndIncrement(8, 9);
         this.secondOilPompDriver.stop();
     }

@@ -1,4 +1,4 @@
-package mine;
+package mine.fan;
 
 public class OilPompDriver extends StartStopDevice {
 
@@ -9,13 +9,11 @@ public class OilPompDriver extends StartStopDevice {
         this.orderNumber = numberOfOilPompDrivers++;
     }
 
-    public void start() throws AlreadyRunning {
+    public void start() {
         System.out.println("Starting the oil pomp number: " + this.orderNumber);
-        this.setAsRunning();
     }
 
-    public void stop() throws AlreadyStopped {
+    public void stop() {
         System.out.println("Stopping the oil pomp number: " + this.orderNumber);
-        this.setAsStopped();
     }
 }

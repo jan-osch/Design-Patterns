@@ -1,4 +1,4 @@
-package mine;
+package mine.fan;
 
 public abstract class PowerSwitch extends StartStopDevice {
 
@@ -8,13 +8,11 @@ public abstract class PowerSwitch extends StartStopDevice {
         this.name = name;
     }
 
-    public void start() throws AlreadyRunning {
+    public void start() {
         System.out.println(this.name + " is being short-circuted ");
-        this.setAsRunning();
     }
 
-    public void stop() throws AlreadyStopped {
+    public void stop() {
         System.out.println(this.name + " is being opened");
-        this.setAsStopped();
     }
 }
